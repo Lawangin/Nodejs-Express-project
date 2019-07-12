@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 //import handlebars module as its not part of express package
 //const expressHbs = require('express-handlebars');
 
+const errorController = require('./controllers/error');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -25,22 +27,16 @@ app.set('views', 'views');
 //app.set('view engine', 'pug');
 //app.set('views', 'views');
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    //one way to path ro html page using path.join()
-    //res.status(404).sendFile(path.join(__dirname, 'Views', 'page-not-found.html'));
-
-    //renders pug/handlebar/ejs pages in the views folder
-    res.render('page-not-found', { pageTitle: 'page not found' });
-});
+app.use(errorController.get404);
 
 //const server = http.createServer(app);
 //server.listen(3000);
