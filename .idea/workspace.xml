@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c6cb3496-8295-4421-90a7-1cebb267e432" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Views/admin/edit-product.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/admin/products.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/shop/cart.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/shop/checkout.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/shop/index.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/shop/orders.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Views/shop/product-detail.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/forms.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/add-product.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/admin/add-product.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/includes/navigation.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/includes/navigation.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/shop.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/Views/shop/product-list.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/error.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/error.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/products.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/products.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/product.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/shop.js" afterDir="false" />
-    </list>
+    <list default="true" id="c6cb3496-8295-4421-90a7-1cebb267e432" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -311,12 +288,12 @@
       <updated>1562025726447</updated>
       <workItem from="1562025727668" duration="40274000" />
       <workItem from="1562959262418" duration="172000" />
-      <workItem from="1563364704545" duration="10490000" />
+      <workItem from="1563364704545" duration="10600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73571000" />
+    <option name="totallyTimeSpent" value="73681000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="23" width="1400" height="918" extended-state="0" />
