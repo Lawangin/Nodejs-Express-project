@@ -15,7 +15,9 @@ exports.getProduct = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 
     // Sequelize code
@@ -60,7 +62,11 @@ exports.getSingleProduct = (req, res, next) => {
                 path: '/products'
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
     // Same as findByPk in sequelize but uses the where parameter in findAll
     // Product.findAll({where: {id: prodId}}).then(products => {   //where parameter that can grab specific attributes of product
@@ -107,7 +113,9 @@ exports.getIndex = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 
     // Sequelize code
@@ -150,7 +158,9 @@ exports.getCart = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 
     // Sequelize code
@@ -203,8 +213,12 @@ exports.postCart = (req, res, next) => {
         .then(result => {
             console.log(result);
             res.redirect('/cart');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
-        // .catch();
 
     // Sequelize code for getting adding to cart with cart and cart-items model
     // const prodId = req.body.productId;
@@ -258,7 +272,11 @@ exports.postCartDeleteProduct = (req, res, next) => {
         .then(result => {
             res.redirect('/cart');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
     // Sequelize MySQL code
     // const prodId = req.body.productId;
@@ -294,7 +312,8 @@ exports.postOrder = (req, res, next) => {
             });
             const order = new Order({
                 user: {
-                    name: req.user.name,
+                    // name: req.user.name,
+                    email: req.user.email,
                     userId: req.user
                 },
                 products: products
@@ -309,7 +328,11 @@ exports.postOrder = (req, res, next) => {
         .then(() => {
             res.redirect('/orders')
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
     // Sequelize code
     // let fetchedCart;
@@ -351,7 +374,11 @@ exports.getOrders = (req, res, next) => {
                 orders: orders
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
     // Sequelize code for getting orders
     // req.user

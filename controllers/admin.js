@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+
+const { validationResult } = require('express-validator/check');
 const Product = require('../models/product');
 
 
@@ -7,7 +10,10 @@ exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
-        editing: false
+        editing: false,
+        hasError: false,
+        errorMessage: null,
+        validationErrors: []
     });
 };
 
@@ -16,10 +22,29 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).render('admin/add-product', {
+            pageTitle: 'Add Product',
+            path: '/admin/add-product',
+            editing: false,
+            hasError: true,
+            product: {
+                title: title,
+                imageUrl: imageUrl,
+                price: price,
+                description: description,
+            },
+            errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array()
+        });
+    }
     // With Mongodb driver
     // replace product parameters, Product(title, price, description, imageUrl, null, req.user._id);
     // Mongoose Product below
     const product = new Product({
+        // _id: new mongoose.Types.ObjectId('5d5b385c030c775c5a0151c8'),
         title: title,
         price: price,
         description: description,
@@ -32,7 +57,12 @@ exports.postAddProduct = (req, res, next) => {
             console.log('created product');
             res.redirect('/admin/products');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            // res.redirect('/500');
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 
     // Sequel and MySQL code
     // products.push({title: req.body.title});
@@ -63,7 +93,7 @@ exports.postAddProduct = (req, res, next) => {
 
 exports.getProducts =  (req, res, next) => {
     // Product.fetchAll() is MongoDB syntax
-    Product.find()  // returns all products auto in mongoose
+    Product.find({userId: req.user._id})  // returns all products auto in mongoose. with userId, finds that user with its data
         // which fields should be retrieved from the database from the Product collection/schema.
         // Minus and parameter will exclude it such as, -_id
         // .select('title price -_id')
@@ -80,7 +110,9 @@ exports.getProducts =  (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         })
 };
 
@@ -99,11 +131,16 @@ exports.getEditProduct = (req, res, next) => {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit-product',
                 editing: editMode,
-                product: product
+                product: product,
+                hasError: false,
+                errorMessage: null,
+                validationErrors: []
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -113,34 +150,61 @@ exports.postEditProduct = (req, res, next) => {
     const updatedPrice = req.body.price;
     const updatedImageUrl = req.body.imageUrl;
     const updatedDescription = req.body.description;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(422).render('admin/edit-product', {
+            pageTitle: 'Edit Product',
+            path: '/admin/edit-product',
+            editing: true,
+            hasError: true,
+            product: {
+                title: updatedTitle,
+                imageUrl: updatedImageUrl,
+                price: updatedPrice,
+                description: updatedDescription,
+                _id: prodId
+            },
+            errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array()
+        });
+    }
     // MongoDB code for new product,
     // const product = new Product(updatedTitle, updatedPrice,  updatedDescription, updatedImageUrl, prodId)
     Product.findById(prodId).then(product => {
+        if (product.userId.toString() !== req.user._id.toString()) {    // edits only if productId AND userId matches. converted to string cuz originally object
+            return res.redirect('/');
+        }
         product.title = updatedTitle;
         product.price = updatedPrice;
         product.description = updatedDescription;
         product.imageUrl = updatedImageUrl;
-        return product.save();  // save() comes with mongoose
-    })
-        .then(result => {
-            console.log('Updated Product');
-            res.redirect('/admin/products');
-        }) //because we added a return on .save(), this then() allows err to be catch on both promises
+        // save() comes with mongoose
+        return product.save()
+            .then(result => {
+                console.log('Updated Product');
+                res.redirect('/admin/products');
+            }); //because we added a return on .save(), this then() allows err to be catch on both promises
+        })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
     // Product.deleteById(prodId), Mongodb syntax
-    Product.findByIdAndRemove(prodId)
+    Product.deleteOne({_id: prodId, userId: req.user._id})  //only deletes if productId AND userId matches
         .then(() => {
             console.log('Destroyed Product');
             res.redirect('/admin/products');
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 

@@ -3,14 +3,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
+    // name: {
+    //     type: String,
+    //     required: true
+    // },
     email: {
         type: String,
         required: true
     },
+    password: {
+        type: String,
+        required: true
+    },
+    resetToken: String,
+    resetTokenExpiration: Date,
     cart: {
         items: [{   // can set up an array with type String in there or we can do documents as used by the code
             productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
