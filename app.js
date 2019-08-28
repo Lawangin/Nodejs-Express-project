@@ -14,6 +14,8 @@ const multer = require('multer');
 //const expressHbs = require('express-handlebars');
 
 const errorController = require('./controllers/error');
+const shopController = require('./controllers/shop');
+const isAuth = require('./middleware/is-auth');
 // const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
@@ -28,7 +30,7 @@ const User = require('./models/user');
 
 
 // ?retryWrites=true&w=majority removed from URI for it to work with sessions
-const MONGODB_URI = '';
+const MONGODB_URI = 'mongodb+srv://Lawangin:iam2ndkhanz@cluster0-ssqlj.mongodb.net/shop';
 
 const app = express();
 const store = new MongoDBStore({
@@ -91,6 +93,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 // dest: 'images; in multer obj argu creates a destination folder named images
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // session middleware. Written to database. the session will not saved on every response because of resave: false
 // sessions are more secure and don't have cookie limitations
@@ -101,15 +104,12 @@ app.use(session({
     store: store
 }));
 
-// middleware to use csrf token
-app.use(csrfProtection);
 
 app.use(flash());   // we can use this middle function flash anywhere in our application on req object
 
 app.use((req, res, next) => {
     // locals is a express field that allows locals variables that will be passed to the views
     res.locals.isAuthenticated = req.session.isLoggedIn;
-    res.locals.csrfToken = req.csrfToken();
     next();
 });
 
@@ -143,6 +143,15 @@ app.use((req, res, next) => {
     // next();
 });
 
+app.post('/create-order', isAuth, shopController.postOrder);
+
+// middleware to use csrf token
+app.use(csrfProtection);
+app.use((req, res, next) => {
+    // locals is a express field that allows locals variables that will be passed to the views
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);

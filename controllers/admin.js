@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const fileHelper = require('../util/file');
+
 const { validationResult } = require('express-validator/check');
 const Product = require('../models/product');
 
@@ -55,6 +57,9 @@ exports.postAddProduct = (req, res, next) => {
             validationErrors: errors.array()
         });
     }
+
+    const imageUrl = image.path;
+
     // With Mongodb driver
     // replace product parameters, Product(title, price, description, imageUrl, null, req.user._id);
     // Mongoose Product below
@@ -163,7 +168,7 @@ exports.postEditProduct = (req, res, next) => {
     const prodId =req.body.productId;
     const updatedTitle = req.body.title;
     const updatedPrice = req.body.price;
-    const updatedImageUrl = req.body.imageUrl;
+    const image = req.file;
     const updatedDescription = req.body.description;
     const errors = validationResult(req);
 
@@ -175,7 +180,6 @@ exports.postEditProduct = (req, res, next) => {
             hasError: true,
             product: {
                 title: updatedTitle,
-                imageUrl: updatedImageUrl,
                 price: updatedPrice,
                 description: updatedDescription,
                 _id: prodId
@@ -193,7 +197,10 @@ exports.postEditProduct = (req, res, next) => {
         product.title = updatedTitle;
         product.price = updatedPrice;
         product.description = updatedDescription;
-        product.imageUrl = updatedImageUrl;
+        if (image) {
+            fileHelper.deleteFile(product.imageUrl);
+            product.imageUrl = image.path;
+        }
         // save() comes with mongoose
         return product.save()
             .then(result => {
@@ -208,20 +215,48 @@ exports.postEditProduct = (req, res, next) => {
         });
 };
 
-exports.postDeleteProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    // Product.deleteById(prodId), Mongodb syntax
-    Product.deleteOne({_id: prodId, userId: req.user._id})  //only deletes if productId AND userId matches
+exports.deleteProduct = (req, res, next) => {
+    const prodId = req.params.productId;
+    Product.findById(prodId)
+        .then(product => {
+            if (!product) {
+                return next(new Error('Product not found.'));
+            }
+            fileHelper.deleteFile(product.imageUrl);
+            // Product.deleteById(prodId), Mongodb syntax
+            return Product.deleteOne({_id: prodId, userId: req.user._id})  //only deletes if productId AND userId matches
+        })
         .then(() => {
             console.log('Destroyed Product');
-            res.redirect('/admin/products');
+            res.status(200).json({message: 'Success!'});
         })
         .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+            res.status(500).json({message: 'Deleting product failed.'});
         });
 };
+
+// Deletes product by refreshing the page and doesnt use async js on client side
+// exports.postDeleteProduct = (req, res, next) => {
+//     const prodId = req.body.productId;
+//     Product.findById(prodId)
+//         .then(product => {
+//             if (!product) {
+//                 return next(new Error('Product not found.'));
+//             }
+//             fileHelper.deleteFile(product.imageUrl);
+//             // Product.deleteById(prodId), Mongodb syntax
+//             return Product.deleteOne({_id: prodId, userId: req.user._id})  //only deletes if productId AND userId matches
+//         })
+//         .then(() => {
+//             console.log('Destroyed Product');
+//             res.redirect('/admin/products');
+//         })
+//         .catch(err => {
+//             const error = new Error(err);
+//             error.httpStatusCode = 500;
+//             return next(error);
+//         });
+// };
 
 // exports.getEditProduct = (req, res, next) => {
 //     const editMode = req.query.edit;
