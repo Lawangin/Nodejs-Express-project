@@ -1,1 +1,1 @@
-web: node app.js
+web: MONGO_USER=Lawangin MONGO_PASSWORD=iam2ndkhanz MONGO_DEFAULT_DATABASE=shop STRIPE_KEY=sk_test_3merSUg9264AHo3QraRGwlrR00T6vXsw5b GRID_KEY=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 node app.js
