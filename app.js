@@ -90,7 +90,7 @@ const authRoutes = require('./routes/auth');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 app.use(function(req, res, next) {
-    res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
+    res.setHeader("Content-Security-Policy", "img-src 'self' data:");
     return next();
 });
 app.use(helmet());
