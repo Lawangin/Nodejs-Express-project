@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c6cb3496-8295-4421-90a7-1cebb267e432" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/access.log" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="224" selection-start-column="224" selection-end-column="224" />
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -254,12 +253,12 @@
       <workItem from="1564413046194" duration="637000" />
       <workItem from="1564434243065" duration="33841000" />
       <workItem from="1565053296917" duration="107643000" />
-      <workItem from="1568851072669" duration="10892000" />
+      <workItem from="1568851072669" duration="11147000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="310729000" />
+    <option name="totallyTimeSpent" value="310984000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -619,7 +618,7 @@
     <entry file="file://$PROJECT_DIR$/Procfile">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="224" selection-start-column="224" selection-end-column="224" />
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
