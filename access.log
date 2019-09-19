@@ -29,3 +29,7 @@
 ::1 - - [19/Sep/2019:13:48:38 +0000] "GET /css/auth.css HTTP/1.1" 200 91 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
 ::1 - - [19/Sep/2019:13:48:38 +0000] "GET /css/forms.css HTTP/1.1" 200 471 "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
 ::1 - - [19/Sep/2019:13:48:38 +0000] "GET /js/main.js HTTP/1.1" 304 - "http://localhost:3000/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
+::1 - - [19/Sep/2019:14:37:30 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
+::1 - - [19/Sep/2019:14:37:30 +0000] "GET /css/product.css HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
+::1 - - [19/Sep/2019:14:37:30 +0000] "GET /css/main.css HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
+::1 - - [19/Sep/2019:14:37:30 +0000] "GET /js/main.js HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"
