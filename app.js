@@ -89,11 +89,11 @@ const authRoutes = require('./routes/auth');
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
-app.use(helmet({
-    frameguard: {
-        action: 'deny'
-    }
-}));
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "script-src 'self'");
+    return next();
+});
+app.use(helmet());
 app.use(compression());
 app.use(morgan('combined', { stream: accessLogStream }));
 
