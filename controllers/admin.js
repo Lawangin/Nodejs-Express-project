@@ -8,7 +8,7 @@ const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
     // console.log('In the Middleware!');
-    //res.sendFile(path.join(rootDir, 'Views', 'add-product.html'));
+    //res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
