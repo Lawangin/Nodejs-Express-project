@@ -32,7 +32,9 @@
             </div>
             <%- include('../includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
         <% } else { %>
-            <h1>No Products Found!</h1>
+            <h2>May use these credentials to Login and start posting products to sell:</h2>
+            <h1>Username: test@test.com<br />Password: 12345678</h1><br/>
+            <h1>No Products Currently Listed! Login and Start Posting!</h1>
         <% } %>
     </main>
 <%- include('../includes/end.ejs') %>

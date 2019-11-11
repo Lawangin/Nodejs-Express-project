@@ -18,7 +18,8 @@
                     type="email"
                     name="email"
                     id="email"
-                    value="<%= oldInput.email %>">
+                    value="<%= oldInput.email %>"
+                    placeholder="test@test.com">
         </div>
         <div class="form-control">
             <label for="password">Password</label>
@@ -27,7 +28,8 @@
                     type="password"
                     name="password"
                     id="password"
-                    value="<%= oldInput.password %>">
+                    value="<%= oldInput.password %>"
+                    placeholder="12345678">
         </div>
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn" type="submit">Login</button>
