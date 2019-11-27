@@ -55,7 +55,7 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images');
     },
     filename: (req, file, cb) => {
-        cb(null, new Date().toISOString() + '-' + file.originalname);
+        cb(null, new Date().getTime() + '-' + file.originalname);
     }
 });
 
@@ -175,6 +175,7 @@ app.get('/500', errorController.get500);
 app.use(errorController.get404);
 // special error handling middleware provided by express that allows it run first if called upon in rest of code instead of top to bottom
 app.use((error, req, res, next) => {
+    console.log(error);
     // res.status(error.httpStatusCode.render(...)
     // res.redirect('/500');
     res.status(500).render('500', {
